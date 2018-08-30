@@ -1,0 +1,120 @@
+<!--created by Liao Hongjun Jun 7, 2018-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闲游欢迎您~</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div id="automatic">
+    <div class="prev_div"></div>
+    <a class="prev" href="###">
+        <span class="ico1"></span>
+        <span class="ico"></span>
+        <span class="txt"></span>
+    </a>
+
+    <div class="next_div"></div>
+    <a class="next" href="###">
+        <span class="ico1"></span>
+        <span class="ico"></span>
+        <span class="txt"></span>
+    </a>
+
+    <ul class="travel_place">
+        <li class="pos_0"><a href="school.html"><img src="image/tree.jpg" width="100" alt="" longdesc="" /></a></li>
+        <li class="pos_1"><a href="school.html"><img src="image/museum.jpg" width="270" height="137" alt="" longdesc="" /></a></li>
+        <li class="pos_2"><a href="school.html"><img src="image/river.jpg" width="510" height="258" alt="" longdesc="" /></a></li>
+        <li class="pos_3"><a href="school.html"><img src="image/school.jpg" width="680" height="344" alt="school.html"/></a></li>
+        <li class="pos_4"><a href="school.html"><img src="image/mountain.jpg" width="510" height="258" alt="" longdesc="" /></a></li>
+        <li class="pos_5"><a href="school.html"><img src="image/hunan_school.jpg" width="270" height="137" alt="" longdesc="" /></a></li>
+        <li class="pos_6"><a href="school.html"><img src="image/tree.jpg" width="270" height="137" alt="" longdesc="" /></a></li>
+        <li class="pos_6"><a href="school.html"><img src="image/timg.jpg" width="270" height="137" alt="" longdesc="" /></a></li>
+    </ul>
+
+</div>
+
+<p id="pic_head">想去哪呢~ 点一点出发吧</p>
+<p id="pic_head1">带你去你想去的地方</p>
+
+<div id="pic_lists">
+    <div id="pic_list1"></br></br></br></br></br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#f5deb3" >湖南省植物园</font></div>
+    <div id="pic_list2"></br></br></br></br></br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#f5deb3" >海底世界</font></div>
+    <div id="pic_list3"></br></br></br></br></br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#f5deb3" >岳麓山</font></div>
+    <div id="pic_list4"></br></br></br></br></br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#f5deb3" >长沙理工大学</font></div>
+    <div id="pic_list5"></br></br></br></br></br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#f5deb3" >湖南省博物馆</font></div>
+</div>
+
+<!--<p id="example">选择您最喜欢的导游噢~</p>-->
+<p id="footer"><a href="http://www.travelxianyou.com">闲~游 www.travelxianyou.com</a></p>
+
+<script>
+    var oPrevDiv = document.getElementsByClassName('prev_div')[0];
+    var oNextDiv = document.getElementsByClassName('next_div')[0];
+
+    var aLi = document.getElementsByTagName('li');
+
+    var arr = [];
+
+    for(var i=0;i<aLi.length;i++){
+
+        var oImg = aLi[i].getElementsByTagName('img')[0];
+
+        arr.push( [ parseInt(getStyle(aLi[i],'left')),parseInt(getStyle(aLi[i],'top')),getStyle(aLi[i],'opacity')*100,getStyle(aLi[i],'zIndex') , oImg.width, oImg.height] );
+
+    }
+
+    //console.dir(arr);
+
+    oPrevDiv.onclick = function(){  //左
+
+        arr.push(arr[0]);
+        arr.shift();
+
+        for(var i=0;i<aLi.length;i++){
+
+            var oImg = aLi[i].getElementsByTagName('img')[0];
+
+            aLi[i].style.zIndex = arr[i][3];
+
+            startMove(aLi[i],{left : arr[i][0] , top : arr[i][1] , opacity : arr[i][2] });
+
+            startMove( oImg,{ width : arr[i][4], height: arr[i][5] } );
+
+        }
+
+    };
+
+    oNextDiv.onclick = function(){  //右
+        arr.unshift(arr[arr.length-1]);
+        arr.pop();
+
+        for(var i=0;i<aLi.length;i++){
+
+            var oImg = aLi[i].getElementsByTagName('img')[0];
+
+            aLi[i].style.zIndex = arr[i][3];
+
+            startMove(aLi[i],{left : arr[i][0] , top : arr[i][1] , opacity : arr[i][2] });
+
+            startMove( oImg,{ width : arr[i][4], height: arr[i][5] } );
+
+        }
+    };
+
+
+    function getStyle(obj,attr){
+        if(obj.currentStyle){
+            return obj.currentStyle[attr];
+        }
+        else{
+            return getComputedStyle(obj,false)[attr];
+        }
+    }
+
+</script>
+<script src="move.js"></script>
+</body>
+</html>
